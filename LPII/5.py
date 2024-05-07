@@ -1,3 +1,7 @@
+"""
+Implement any one of the following Expert System
+Hospitals and medical facilities5.
+"""
 class MedicalDiagnosisSystem:
     def __init__(self):
         self.rules = {
