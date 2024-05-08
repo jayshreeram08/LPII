@@ -1,36 +1,58 @@
-"""
-Implement any one of the following Expert System
-Hospitals and medical facilities.
-"""
-class MedicalDiagnosisSystem:
+#  implement any one of the following Expert System
+# Hospitals and medical facilities
+
+class ExpertSystem:
     def __init__(self):
-        self.rules = {
-            'flu': ['fever', 'cough', 'sore throat', 'runny nose'],
-            'cold': ['cough', 'sore throat', 'stuffy nose'],
-            'stomach flu': ['nausea', 'vomiting', 'diarrhea']
+        self.knowledge_base = {
+            'fever': ['malaria', 'flu', 'dengue'],
+            'cough': ['flu', 'pneumonia', 'asthma'],
+            'headache': ['migraine', 'tension headache', 'sinusitis'],
+            'fatigue': ['anemia', 'hypothyroidism', 'chronic fatigue syndrome','asthma'],
+            'rash': ['allergy', 'eczema', 'psoriasis']
         }
-    def diagnose(self, symptoms):
-        diagnoses = []
-        for illness, illness_symptoms in self.rules.items():
-            if all(symptom in symptoms for symptom in illness_symptoms):
-                diagnoses.append(illness)
-        return diagnoses
 
-def main():
-    print("Welcome to the Simple Medical Diagnosis System")
-    print("Please enter your symptoms separated by commas:")
-    user_input = input()
-    symptoms = [symptom.strip().lower() for symptom in user_input.split(',')]
+        self.facilities = {
+            'malaria': 'Hospital A',
+            'flu': 'Hospital B',
+            'dengue': 'Hospital C',
+            'pneumonia': 'Hospital D',
+            'asthma': 'Hospital E',
+            'migraine': 'Hospital F',
+            'tension headache': 'Hospital G',
+            'sinusitis': 'Hospital H',
+            'anemia': 'Hospital I',
+            'hypothyroidism': 'Hospital J',
+            'chronic fatigue syndrome': 'Hospital K',
+            'allergy': 'Hospital L',
+            'eczema': 'Hospital M',
+            'psoriasis': 'Hospital N'
+        }
 
-    system = MedicalDiagnosisSystem()
-    diagnosis = system.diagnose(symptoms)
+    def infer_diagnosis(self, symptoms):
+        possible_diagnosis = []
+        for symptom in symptoms:
+            if symptom in self.knowledge_base:
+                possible_diagnosis.extend(self.knowledge_base[symptom])
 
-    if diagnosis:
-        print("Based on your symptoms, you may have the following:")
-        for illness in diagnosis:
-            print(illness)
-    else:
-        print("Your symptoms do not match any common illnesses in our system.")
+        if possible_diagnosis:
+            diagnosis = max(set(possible_diagnosis), key=possible_diagnosis.count)
+            return diagnosis
+        else:
+            return "No specific diagnosis based on the symptoms provided."
 
-if __name__ == "__main__":
-    main()
+    def recommend_facility(self, diagnosis):
+        if diagnosis in self.facilities:
+            return f"Based on your diagnosis ({diagnosis}), you should visit: {self.facilities[diagnosis]}"
+        else:
+            return "No specific facility recommendation for this diagnosis."
+
+expert_system = ExpertSystem()
+user_symptoms = ['fever', 'cough', 'fatigue']
+diagnosis = expert_system.infer_diagnosis(user_symptoms)
+print("Diagnosis:", diagnosis)
+
+if diagnosis != "No specific diagnosis based on the symptoms provided.":
+    facility_recommendation = expert_system.recommend_facility(diagnosis)
+    print("Facility Recommendation:", facility_recommendation)
+else:
+    print("No facility recommendation as there is no specific diagnosis.")
