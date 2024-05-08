@@ -13,7 +13,6 @@ class Graph:
         self.graph[v].append((u, w))
 
     def prim_mst(self):
-        # Priority queue: (weight, vertex)
         pq = [(0, 0)]
         mst_cost = 0
         in_mst = [False] * self.V
@@ -33,8 +32,7 @@ class Graph:
                     heapq.heappush(pq, (cost, v))
 
         return result, mst_cost
-
-# Example usage
+        
 g = Graph(4)
 g.add_edge(0, 1, 10)
 g.add_edge(0, 2, 6)
