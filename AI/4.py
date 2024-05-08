@@ -13,6 +13,7 @@ def is_safe(board, row, col):
         if board[i][j] == 1:
             return False
     return True
+    
 def solve_nq_util(board, col):
     if col >= len(board):
         return True
@@ -23,6 +24,7 @@ def solve_nq_util(board, col):
                 return True
             board[i][col] = 0
     return False
+    
 def solve_n_queens(n):
     board = [[0]*n for _ in range(n)]
     if not solve_nq_util(board, 0):
@@ -31,6 +33,7 @@ def solve_n_queens(n):
 def print_solution(board):
     for row in board:
         print(" ".join("Q" if x else "." for x in row))
+        
 print("Enter the size of board n*n")
 n=int(input())
 solution = solve_n_queens(n)
