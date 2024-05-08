@@ -1,44 +1,42 @@
-"""
-4.Implement a solution for a Constraint Satisfaction Problem using Branch and Bound and Backtracking
-for n-queens problem or a graph coloring problem.
-"""
+# Implement a solution for a Constraint Satisfaction Problem using Branch 
+# and Bound and Backtracking for n-queens problem or a graph coloring problem
+
 def is_safe(board, row, col):
-    for i in range(col):
-        if board[row][i] == 1:
-            return False
-    for i, j in zip(range(row, -1, -1), range(col, -1, -1)):
-        if board[i][j] == 1:
-            return False
-    for i, j in zip(range(row, len(board), 1), range(col, -1, -1)):
-        if board[i][j] == 1:
+    # Check if there is a queen in the same column or diagonal
+    for i in range(row):
+        if board[i] == col or abs(board[i] - col) == row - i:
             return False
     return True
-    
-def solve_nq_util(board, col):
-    if col >= len(board):
-        return True
-    for i in range(len(board)):
-        if is_safe(board, i, col):
-            board[i][col] = 1
-            if solve_nq_util(board, col + 1):
-                return True
-            board[i][col] = 0
-    return False
-    
+
 def solve_n_queens(n):
-    board = [[0]*n for _ in range(n)]
-    if not solve_nq_util(board, 0):
-        return None
-    return board
-def print_solution(board):
+    def backtrack(row):
+        nonlocal solutions
+        if row == n:
+            solutions.append(board[:])
+            return
+        for col in range(n):
+            if is_safe(board, row, col):
+                board[row] = col
+                backtrack(row + 1)
+                board[row] = -1
+
+    board = [-1] * n
+    solutions = []
+    backtrack(0)
+    return solutions
+
+def print_board(board):
     for row in board:
-        print(" ".join("Q" if x else "." for x in row))
-        
-print("Enter the size of board n*n")
-n=int(input())
-solution = solve_n_queens(n)
-if solution:
-    print("One of the solutions for the", n, "Queens problem:")
-    print_solution(solution)
+        print(" ".join("Q" if cell == 1 else "-" for cell in row))
+    print()
+
+# Usage
+n = 4
+solutions = solve_n_queens(n)
+if solutions:
+    print("Solutions found:")
+    for solution in solutions:
+        print_board([[1 if i == col else 0 for col in solution] for i in range(n)])
 else:
-    print("No solution exists.")
+    print("No solution found.")
+
