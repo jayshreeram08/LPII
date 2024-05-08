@@ -35,10 +35,8 @@ def a_star_search(start, goal, grid):
                     if grid[neighbor[0]][neighbor[1]] == 1:
                         continue
                 else:
-                    # array bounds exceeded
-                    continue
+                        continue
             else:
-                # array bounds exceeded
                 continue
 
             if neighbor in close_set and tentative_g_score >= gscore.get(neighbor, 0):
@@ -51,7 +49,6 @@ def a_star_search(start, goal, grid):
                 heapq.heappush(oheap, (fscore[neighbor], neighbor))
 
     return False
-
 grid = np.array([
     [0, 0, 0, 0],
     [0, 1, 1, 0],
