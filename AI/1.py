@@ -16,7 +16,7 @@ def dfs(g,s):
         if not vis[c]:
             dfs(g,c)
 
-vis=[0]*5   #list compression
+vis=[0]*5
 print("DFS traversal")
 dfs(g,0)
 def bfs(g,s):
