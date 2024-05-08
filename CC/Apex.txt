@@ -24,5 +24,4 @@ public class LinearSearch{
         		System.debug('Element Not Found');
     	}
 	}
-
 }
