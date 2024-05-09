@@ -1,0 +1,8 @@
+Enter the number of vertices:
+5
+Enter the adjacency list for each vertex (node: neighbours, separated by spaces):
+0 1 2
+1 0 3 4
+2 3 0
+3 2 1 4
+4 3 1
